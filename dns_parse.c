@@ -38,8 +38,8 @@ char *
 handle_udp_packet(unsigned char* buffer, int offset)
 {
     struct udphdr * uh = (struct udphdr *)(buffer + offset);
-    int s_port=htons(uh->uh_sport);
-    int d_port=htons(uh->uh_dport);
+    int s_port=htons(uh->source);
+    int d_port=htons(uh->dest);
 
     offset += 8; /*udp header length*/
     if (s_port == 53 || d_port == 53) {
