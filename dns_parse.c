@@ -6,6 +6,7 @@
 
 static char* handle_udp_packet(unsigned char* buffer, int offset);
 static void parse_dns(unsigned char* buffer, int offset);
+static char source[20], dest[20];
 
 char *
 handle_packet(unsigned char* buffer)
@@ -14,6 +15,8 @@ handle_packet(unsigned char* buffer)
 
     offset += ETH_HLEN;
     struct iphdr* iph = (struct iphdr*)(buffer+offset);
+    long2ip(ntohl(iph->saddr), source);
+    long2ip(ntohl(iph->daddr), dest);
     switch (iph->protocol) {
     
         case IPPROTO_ICMP:          /*ICMP Protocol*/
@@ -62,6 +65,6 @@ parse_dns(unsigned char* buffer, int offset)
     }
     buf[strlen(buf)-1] = '\0';
     char *tim = current_time();
-    printf("%s DNS lookup: %s\n", tim, buf);
+    printf("%s DNS lookup: [%s]=>[%s] target=%s\n", tim, source, dest, buf);
     free(tim);
 }
