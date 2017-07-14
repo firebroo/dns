@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include "common.h"
 #include "dns_parse.h"
 
 static char* handle_udp_packet(unsigned char* buffer, int offset);
@@ -59,5 +61,7 @@ parse_dns(unsigned char* buffer, int offset)
         curr += *curr + 1;
     }
     buf[strlen(buf)-1] = '\0';
-    printf("----DNS lookup: %s\n", buf);
+    char *tim = current_time();
+    printf("%s DNS lookup: %s\n", tim, buf);
+    free(tim);
 }
