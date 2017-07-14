@@ -7,7 +7,7 @@ OBJS = $(SRCS:.c=.o)
 INSTALLDIR = /bin/
 
 CC = cc
-CFLAGS = -O2 -I/usr/include/libbson-1.0 -lbson-1.0
+CFLAGS = -O3
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
